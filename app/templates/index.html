@@ -13,9 +13,17 @@
         <nav>
             <a href="/">Home</a>
             <a href="/toDoApp">Tasks</a>
+            <a href="/logout">Logout</a>
         </nav>
     </header>
     <main>
+        {% with messages = get_flashed_messages() %}
+            {%if messages %}
+                {% for m in messages %}
+                    <h5>{{m}}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         Join to add new items
         <div class="row">
             <form action="/login" method='post'>
