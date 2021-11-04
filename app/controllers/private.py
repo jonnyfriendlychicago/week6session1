@@ -17,6 +17,6 @@ def toDo():
     }
     return render_template('toDo.html', user=User.getOne(data), tasks=Tasks.getAll())
 
-@app.route('/createTask', methods='[POST]')
+@app.route('/createTask', methods=['POST'])
 def createTask():
     pass
