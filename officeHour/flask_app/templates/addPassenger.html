@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        </nav>
+    </header>
+    <main>
+        <form action="/createPassenger/", method="post">
+            <section>
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName">
+            </section>
+            <section>
+                <label for="lastName">Last Name: </label>
+                <input type="text" name="lastName">
+            </section>
+            <section>
+                <label for="flight_id">Flight Number:</label>
+                <select name="flight_id">
+                    {% for flight in flights %}
+                        <option value="{{flight.id}}">{{flight.origination}} {{flight.flightNumber}}</option>
+                    {% endfor %}
+                </select>
+            </section>
+            <button>Submit</button>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+</body>
+</html>

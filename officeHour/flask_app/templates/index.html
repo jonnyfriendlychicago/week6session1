@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to our Flight App</h1>
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        </nav>
+    </header>
+    <main>
+        {% for flight in flights %}
+            <h2>Flight Number: {{flight.flightNumber}} | <a href="/flight/{{flight.id}}/view/">View Flight</a> | <a href="/flight/{{flight.id}}/manifest">View Flight Manifest</a></h2>
+        {% endfor %}
+        {% for user in users %}
+            <h4>Passenger: {{user.firstName}} | <a href="/passenger/{{user.id}}/view/">View Passenger Information</a></h4>
+        {% endfor %}
+    </main>
+    <footer>
+
+    </footer>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+</body>
+</html>

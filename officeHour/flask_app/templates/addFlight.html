@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            {% block menu %} {% include 'menu.html' %} {% endblock menu %}
+        </nav>
+    </header>
+    <main>
+        <form action="/createFlight/", method="post">
+            <section>
+                <label for="origination">Origination:</label>
+                <input type="text" name="origination">
+            </section>
+            <section>
+                <label for="destination">Destination: </label>
+                <input type="text" name="destination">
+            </section>
+            <section>
+                <label for="flightNumber">Flight Number:</label>
+                <input type="number" name="flightNumber">
+            </section>
+            <section>
+                <label for="departTime">Departure Time:</label>
+                <input type="datetime-local" name="departTime">
+            </section>
+            <section>
+                <label for="arriveTime">Arrival Time:</label>
+                <input type="datetime-local" name="arriveTime">
+            </section>
+            <button>Submit</button>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+</body>
+</html>
