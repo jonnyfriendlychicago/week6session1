@@ -15,6 +15,13 @@
             {% block menu %} {% include 'menu.html' %} {% endblock menu %}
         </nav>
     </header>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for m in messages %}
+            <h5>{{m}}</h5>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
     <main>
         Join to add new items
         <div class="row">
