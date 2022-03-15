@@ -1,14 +1,17 @@
 from flask_app import app
-from flask import Flask, render_template,  redirect, session, request
+from flask import Flask, render_template,  redirect, session, request, flash
 from flask_app.models.airline import Airline
-
-@app.route('/')
-def index():
-    return redirect('/airlines/')
+from flask_app.models import user
 
 @app.route('/airlines/')
 def airlines():
-    return render_template('airlines.html', airlines = Airline.getAll())
+    if 'user_id' not in session:
+        flash("You must be logged in to view this page")
+        return redirect('/')
+    data = {
+        'id': session['user_id']
+    }
+    return render_template('airlines.html', airlines = Airline.getAll(), user=user.User.getOne(data))
 
 @app.route('/airlines/add/')
 def addAirline():

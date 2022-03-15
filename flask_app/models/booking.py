@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app.models.user import User
-from flask_app.models.flight import Flight
+from flask_app.models import user
+from flask_app.models import flight
 
 class Booking:
     db = 'aircorp'

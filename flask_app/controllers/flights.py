@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import Flask, render_template,  redirect, session, request
+from flask import Flask, render_template,  redirect, session, request, flash
 from flask_app.models.flight import Flight
 from flask_app.models.airline import Airline
 
@@ -27,16 +27,16 @@ def viewFlight(flight_id):
     data = {
         'id': flight_id
     }
-    return render_template('viewFlight.html', flights=Flight.getOne(data), airlines=Airline.getAll())
+    return render_template('viewFlight.html', flight=Flight.getOne(data), airlines=Airline.getAll())
 
 @app.route('/flights/<int:flight_id>/edit/')
 def editFlight(flight_id):
     data = {
         'id': flight_id
     }
-    return render_template('editFlight.html', flights=Flight.getOne(data), airlines=Airline.getAll())
+    return render_template('editFlight.html', flight=Flight.getOne(data), airlines=Airline.getAll())
 
-@app.route('/flights/<int:flight_id>/update/')
+@app.route('/flights/<int:flight_id>/update/', methods=['POST'])
 def updateFlight(flight_id):
     data = {
         'id': flight_id,
@@ -44,9 +44,10 @@ def updateFlight(flight_id):
         'departing': request.form['departing'],
         'arriving': request.form['arriving'],
     }
+    Flight.update(data)
     return redirect(f'/flights/{flight_id}/view/')
 
-@app.route('/flights/<int:flight_id>/view/')
+@app.route('/flights/<int:flight_id>/delete/')
 def deleteFlight(flight_id):
     data = {
         'id': flight_id,
