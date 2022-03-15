@@ -48,3 +48,13 @@ def login():
 def logout():
     session.clear()
     return redirect('/')
+
+@app.route('/dashboard/')
+def dashboard():
+    if 'user_id' not in session:
+        flash("You must be logged in to view this page")
+        return redirect('/')
+    data = {
+        'id': session['user_id']
+    }
+    return render_template('dashboard.html', user=user.User.getOne(data))

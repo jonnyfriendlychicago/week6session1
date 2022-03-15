@@ -15,7 +15,13 @@ def airlines():
 
 @app.route('/airlines/add/')
 def addAirline():
-    return render_template('addAirline.html')
+    if 'user_id' not in session:
+        flash("You must be logged in to view this page")
+        return redirect('/')
+    data = {
+        'id': session['user_id']
+    }
+    return render_template('addAirline.html', user=user.User.getOne(data))
 
 @app.route('/airlines/create/', methods=['POST'])
 def createAirline():
@@ -31,19 +37,31 @@ def createAirline():
 
 @app.route('/airlines/<int:airline_id>/view/')
 def viewAirline(airline_id):
+    if 'user_id' not in session:
+        flash("You must be logged in to view this page")
+        return redirect('/')
+    userData = {
+        'id': session['user_id']
+    }
     data = {
         'id': airline_id
     }
     flights = Airline.allFlights(data)
     print("all flights: ", flights)
-    return render_template('viewAirline.html', airline=Airline.getOne(data), flights=Airline.allFlights(data))
+    return render_template('viewAirline.html', airline=Airline.getOne(data), flights=Airline.allFlights(data), user=user.User.getOne(userData))
 
 @app.route('/airlines/<int:airline_id>/edit/')
 def editAirline(airline_id):
+    if 'user_id' not in session:
+        flash("You must be logged in to view this page")
+        return redirect('/')
+    userData = {
+        'id': session['user_id']
+    }
     data = {
         'id': airline_id
     }
-    return render_template('editAirline.html', airline=Airline.getOne(data))
+    return render_template('editAirline.html', airline=Airline.getOne(data), user=user.User.getOne(userData))
 
 @app.route('/airlines/<int:airline_id>/update/', methods=['POST'])
 def updateAirline(airline_id):
